@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tirth Desai — Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Rajdhani:wght@400;600&display=swap">
+<style>
+:root{--bg:#02040c;--ink:#e6f6ff;--mute:#6f8aa8;--c:#00f0ff;--m:#ff2bd6;--v:#7a5cff;--line:rgba(0,240,255,.25);--hd:'Orbitron',ui-monospace,Menlo,sans-serif;--bd:'Rajdhani',system-ui,sans-serif;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:19px;overflow-x:hidden}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+body:after{content:"";position:fixed;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+.glow{position:fixed;width:380px;height:380px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(0,240,255,.14),transparent 65%);transform:translate(-50%,-50%);left:50%;top:50%}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;display:flex;justify-content:space-between;padding:16px 5vw;font:11px var(--hd);letter-spacing:.25em;text-transform:uppercase;background:linear-gradient(#02040c,transparent)}
+nav a{color:var(--ink);text-decoration:none;margin-left:18px;opacity:.7}nav a:hover{opacity:1;color:var(--c);text-shadow:0 0 10px var(--c)}nav b{color:var(--c)}
+section{position:relative;z-index:2;min-height:100vh;padding:14vh 6vw;display:flex;flex-direction:column;justify-content:center}
+.ey{font:11px var(--hd);letter-spacing:.4em;color:var(--c);text-transform:uppercase;margin-bottom:18px}
+.ey:before{content:"// "}
+h1{font:800 clamp(2.6rem,10vw,8rem)/.95 var(--hd);letter-spacing:-.02em;text-transform:uppercase;background:linear-gradient(100deg,var(--c),var(--v) 55%,var(--m));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(0,240,255,.35));animation:gl 5s infinite}
+@keyframes gl{0%,92%,100%{transform:none}94%{transform:translate(3px,-2px) skewX(4deg)}96%{transform:translate(-3px,2px)}}
+h2{font:500 clamp(1.7rem,5vw,3.6rem)/1.1 var(--hd);text-transform:uppercase;margin-bottom:28px}h2 i{font-style:normal;color:var(--c);text-shadow:0 0 18px var(--c)}
+.role{font:600 clamp(1rem,2.6vw,1.5rem) var(--bd);color:var(--mute);margin-top:26px;letter-spacing:.08em}.role span{color:var(--c)}
+.cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);background:rgba(0,240,255,.1);border:0;color:var(--c);padding:15px 28px;font:11px var(--hd);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.3s;box-shadow:inset 0 0 0 1px var(--c)}
+.btn:hover{background:var(--c);color:#000;box-shadow:0 0 30px var(--c)}
+.hint{position:absolute;bottom:4vh;left:6vw;font:10px var(--hd);letter-spacing:.35em;color:var(--mute);animation:bob 2s infinite}@keyframes bob{50%{transform:translateY(8px)}}
+.about{max-width:780px;font-size:clamp(1.1rem,2.3vw,1.5rem);line-height:1.6;color:#b9d2e6}.about em{color:var(--m);font-style:normal}
+.stats{display:flex;gap:36px;flex-wrap:wrap;margin-top:36px}.stats div{border-left:2px solid var(--m);padding-left:14px}
+.stats b{display:block;font:800 2.4rem var(--hd);color:var(--c)}.stats span{font:10px var(--hd);letter-spacing:.2em;color:var(--mute);text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;perspective:1200px}
+.card{position:relative;height:400px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(0,40,60,.55),rgba(8,4,24,.8));padding:24px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transform-style:preserve-3d;transition:transform .15s,border-color .3s,box-shadow .3s;backdrop-filter:blur(8px);overflow:hidden}
+.card:hover{border-color:var(--c);box-shadow:0 0 40px rgba(0,240,255,.25)}
+.card:before{content:"";position:absolute;left:0;right:0;height:2px;background:var(--c);box-shadow:0 0 14px var(--c);top:0;animation:scan 4s linear infinite;opacity:.5}@keyframes scan{to{top:100%}}
+.glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.12),transparent 50%)}
+.num{font:10px var(--hd);color:var(--m);letter-spacing:.25em;transform:translateZ(30px)}
+.orb{width:100px;height:100px;margin:6px auto;transform:translateZ(70px);border-radius:50%;border:2px solid var(--c);position:relative;animation:sp 9s linear infinite;box-shadow:0 0 30px var(--c),inset 0 0 30px var(--v)}
+.orb:before,.orb:after{content:"";position:absolute;inset:12px;border-radius:50%;border:2px dashed var(--m)}.orb:after{inset:28px;border-color:var(--c);animation:sp 3s linear infinite reverse}
+@keyframes sp{to{transform:translateZ(70px) rotate(360deg)}}
+.card h3{font:500 1.15rem var(--hd);text-transform:uppercase;transform:translateZ(50px)}.card p{color:var(--mute);line-height:1.4;margin-top:8px;transform:translateZ(30px)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.chips span{font:600 .8rem var(--bd);border:1px solid var(--line);padding:3px 9px;color:var(--c);letter-spacing:.08em}
+.open{font:10px var(--hd);letter-spacing:.25em;color:var(--m);margin-top:12px}
+.orbit{position:relative;height:380px;display:flex;align-items:center;justify-content:center;perspective:900px}
+.ring{position:absolute;width:min(80vw,460px);height:min(80vw,460px);transform-style:preserve-3d;animation:rot 28s linear infinite;transform:rotateX(68deg);border:1px solid var(--line);border-radius:50%}
+@keyframes rot{to{transform:rotateX(68deg) rotateZ(360deg)}}
+.ring em{position:absolute;left:50%;top:50%;font:normal 600 .95rem var(--bd);letter-spacing:.1em;color:var(--c);border:1px solid var(--c);padding:5px 11px;background:rgba(2,4,12,.85);white-space:nowrap;box-shadow:0 0 12px rgba(0,240,255,.4)}
+.core{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--c) 35%,var(--v));box-shadow:0 0 90px var(--c),0 0 40px var(--m)}
+.contact h2{font-size:clamp(2rem,8vw,5.5rem)}.big{color:var(--c);text-decoration:none;font:500 clamp(1rem,3vw,1.8rem) var(--hd);border-bottom:1px solid var(--c);width:fit-content}
+.links{margin-top:30px;display:flex;gap:22px;flex-wrap:wrap;font:11px var(--hd);letter-spacing:.2em}.links a{color:var(--mute);text-decoration:none}.links a:hover{color:var(--m)}
+.rv{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.on{opacity:1;transform:none}
+#modal{position:fixed;inset:0;z-index:50;background:rgba(2,4,12,.95);backdrop-filter:blur(14px);overflow-y:auto;opacity:0;pointer-events:none;transition:.5s;transform:scale(1.04)}
+#modal.show{opacity:1;pointer-events:auto;transform:none}
+.mi{max-width:980px;margin:0 auto;padding:calc(90px + env(safe-area-inset-top,0px)) 6vw 90px}
+.x{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:5vw;z-index:60;width:46px;height:46px;border:1px solid var(--m);background:#000;color:var(--m);font-size:18px;cursor:pointer;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.mi h2{margin-bottom:8px}.tag{font-size:1.25rem;color:var(--mute);margin-bottom:30px;letter-spacing:.05em}
+.mb{margin:42px 0}.mb h4{font:10px var(--hd);letter-spacing:.35em;color:var(--m);text-transform:uppercase;margin-bottom:14px}.mb p{line-height:1.65;color:#b9d2e6;font-size:1.1rem}
+.steps{border-left:2px solid var(--c);padding-left:22px}.steps div{position:relative;margin-bottom:20px;opacity:0;transform:translateX(-20px);transition:.6s}.steps div.on{opacity:1;transform:none}
+.steps div:before{content:"";position:absolute;left:-29px;top:8px;width:10px;height:10px;background:var(--c);box-shadow:0 0 14px var(--c);transform:rotate(45deg)}
+.steps b{display:block;font:500 .95rem var(--hd);color:#fff;text-transform:uppercase;margin-bottom:3px}.steps span{color:var(--mute);line-height:1.5}
+.demo{border:1px solid var(--c);padding:22px;background:rgba(0,240,255,.04);box-shadow:0 0 30px rgba(0,240,255,.12) inset}
+.demo .sub{font-size:.9rem;color:var(--mute);margin-bottom:14px}
+.pill{display:inline-block;margin:0 8px 8px 0;padding:7px 13px;border:1px solid var(--line);color:var(--ink);cursor:pointer;font:600 .95rem var(--bd);background:none;transition:.2s}
+.pill.on,.pill:hover{border-color:var(--c);color:#000;background:var(--c);box-shadow:0 0 14px var(--c)}
+.bar{height:10px;background:rgba(255,255,255,.07);margin:4px 0 14px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),var(--m));box-shadow:0 0 10px var(--c);transition:width .8s}
+.row{display:flex;justify-content:space-between;font:11px var(--hd);letter-spacing:.15em;text-transform:uppercase}
+.out{margin-top:16px;padding:14px;border-left:2px solid var(--m);background:rgba(255,43,214,.06);line-height:1.6}
+.sl{margin-bottom:16px}.sl label{display:flex;justify-content:space-between;font:10px var(--hd);letter-spacing:.15em;text-transform:uppercase;color:var(--mute)}.sl label b{color:var(--c)}
+input[type=range]{width:100%;accent-color:#00f0ff}
+.big2{font:800 3rem var(--hd);color:var(--c);text-shadow:0 0 20px currentColor}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}.pr{border:1px solid var(--line);padding:12px;text-align:center}.pr div{font-size:2.2rem}.pr b{display:block;font-weight:600}.pr span{color:var(--c)}
+.pr button{margin-top:8px;width:100%;background:none;border:1px solid var(--c);color:var(--c);padding:6px;cursor:pointer;font:600 .85rem var(--bd)}.pr button:hover{background:var(--c);color:#000}
+input[type=text],textarea{width:100%;background:rgba(0,0,0,.4);border:1px solid var(--line);color:var(--ink);padding:10px;font:inherit;margin-bottom:12px}
+svg.ch{width:100%;height:auto;border:1px solid var(--line)}.pth{fill:none;stroke-width:3;stroke-dasharray:1500;stroke-dashoffset:1500;animation:dr 2s forwards}@keyframes dr{to{stroke-dashoffset:0}}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.flow span{border:1px solid var(--c);padding:9px 13px;font:600 .95rem var(--bd);background:rgba(0,240,255,.07);box-shadow:0 0 12px rgba(0,240,255,.2)}.flow em{color:var(--m);font-style:normal}.tt div{display:grid;grid-template-columns:170px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}.tt b{font:10px var(--hd);letter-spacing:.15em;color:var(--c);text-transform:uppercase;padding-top:4px}.tt span{color:#b9d2e6}@media(max-width:600px){.tt div{grid-template-columns:1fr;gap:2px}}.disc{font-size:.85rem;color:var(--mute);margin-top:10px}
+@media(max-width:600px){nav a{margin-left:10px}.card{height:auto;min-height:370px}}
+</style></head><body>
+<canvas id="bg"></canvas><div class="glow" id="glow"></div>
+<nav><b>TD//</b><div><a href="#about">About</a><a href="#work">Work</a><a href="#skills">Stack</a><a href="#contact">Contact</a></div></nav>
+<section><div class="ey">System online · Mumbai · 2026</div><h1>Tirth<br>Desai</h1><div class="role">&gt; building <span id="rt"></span><span>█</span></div>
+<div class="cta"><a class="btn" href="#work">Launch projects</a><a class="btn" href="#contact">Open channel</a></div><div class="hint">SCROLL TO WARP ↓</div></section>
+<section id="about"><div class="ey rv">01 — Profile</div><h2 class="rv">B.Tech <i>Data Science</i><br>NMIMS Mumbai</h2>
+<div class="stats rv"><div><b data-n="5">0</b><span>Projects shipped</span></div><div><b data-n="5">0</b><span>Live demos inside</span></div><div><b data-n="1">0</b><span>Obsession: build</span></div></div></section>
+<section id="work"><div class="ey rv">02 — Missions</div><h2 class="rv">Projects, <i>live.</i></h2>
+<p class="about rv" style="margin-bottom:36px;font-size:1.1rem">Open any mission: full breakdown plus a working demo you can play with right here.</p><div class="grid" id="grid"></div></section>
+<section id="skills"><div class="ey rv">03 — Stack</div><h2 class="rv">Tech <i>orbit</i></h2><div class="orbit"><div class="ring" id="ring"></div><div class="core"></div></div></section>
+<section id="contact" class="contact"><div class="ey rv">04 — Contact</div><h2 class="rv">Let’s build the<br><i>future</i> together</h2><div class="links rv"><a href="#">LINKEDIN</a><a href="#">GITHUB</a><a href="#">INSTAGRAM</a></div></section>
+<div id="modal"><button class="x" id="cx" aria-label="Close">✕</button><div class="mi" id="mi"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const P=[
+{n:"01",t:"Algoveda",s:"Ancient Ayurveda, modern AI",d:"An AI system that reads your symptoms and suggests Ayurvedic remedies and lifestyle guidance.",stack:["Python","spaCy","TF-IDF","LLM API","Streamlit"],
+ prob:"Ayurvedic knowledge is vast, scattered across texts and hard for everyday people to use. Algoveda turns it into an assistant that listens to symptoms and suggests dosha-aware guidance, with safety guardrails.",
+ arch:["User symptoms","NLP cleaning","Symptom → dosha matcher","Remedy ranker","LLM explanation","Safety guardrails"],
+ tech:[["Language","Python 3"],["NLP","spaCy / NLTK for tokenising, lemmatising, symptom extraction"],["Knowledge base","Curated JSON/SQLite of doshas, herbs, remedies, diet, routines"],["Matching","TF-IDF + cosine similarity between symptoms and dosha profiles"],["LLM layer","LLM API to explain suggestions in plain language"],["Interface","Streamlit chat-style UI"]],
+ steps:[["Knowledge base","Structured classical Ayurvedic concepts (doshas, herbs, remedies, diet, routines) into a searchable dataset."],["Understand the user","Cleaned free-text input and extracted symptom entities with NLP."],["Match & rank","Scored symptoms against dosha profiles with TF-IDF similarity and ranked remedies."],["Explain","An LLM turned the ranked output into friendly, reasoned guidance."],["Guardrails","Red-flag keywords trigger a see-a-doctor message; a disclaimer is always shown."]]},
+{n:"02",t:"Credit Risk Analysis",s:"Who will default, and how likely?",d:"A model that estimates a borrower’s probability of default from financial and behavioural data.",stack:["Python","Pandas","scikit-learn","XGBoost","SHAP"],
+ prob:"Lenders lose money on risky borrowers and lose business by rejecting good ones. The goal: predict default probability and explain what drives it.",
+ arch:["Raw loan data","Cleaning & imputing","Feature engineering","Class balancing","Model training","Evaluation + SHAP"],
+ tech:[["Data handling","Pandas, NumPy"],["Features","Debt-to-income, credit utilisation, payment history, loan-to-income"],["Imbalance","SMOTE / class weights (defaults are rare)"],["Models","Logistic Regression baseline, Random Forest, XGBoost"],["Evaluation","ROC-AUC, precision, recall, F1, confusion matrix"],["Explainability","SHAP values for top risk drivers"],["Visuals","Matplotlib, Seaborn"]],
+ steps:[["Explore","EDA on income, loan, history and the default distribution."],["Clean & engineer","Imputed missing values, encoded categoricals, built ratio features."],["Balance","Handled the default/non-default imbalance."],["Model","Compared a logistic baseline with tree ensembles using cross-validation."],["Interpret","Used SHAP to explain which factors push a borrower toward default."]]},
+{n:"03",t:"AQI Predictor",s:"Forecasting the air we breathe",d:"A machine-learning forecaster for air quality in Indian cities from non-Kaggle data.",stack:["Python","OpenAQ / CPCB","XGBoost","LSTM","Pandas"],
+ prob:"Air quality swings daily and drives health and planning decisions. This project sources real public data and predicts upcoming AQI.",
+ arch:["Public AQI + weather APIs","Cleaning & gap-fill","Lag & seasonal features","Model training","Hold-out validation","Multi-day forecast"],
+ tech:[["Data sources","CPCB / OpenAQ pollutant data, Open-Meteo weather (no Kaggle)"],["Cleaning","Pandas interpolation, outlier clipping"],["Features","Lag values, rolling means, day-of-week, month, weather"],["Models","Linear baseline, Random Forest, XGBoost, LSTM"],["Validation","Time-based split (train on past, test on future)"],["Metrics","RMSE, MAE, R²"]],
+ steps:[["Source data","Pulled pollutant and weather records from open government/sensor APIs."],["Clean","Filled gaps by interpolation and clipped sensor outliers."],["Engineer","Built lag, rolling-average and seasonal features."],["Model","Compared baselines to XGBoost and LSTM on a future hold-out window."],["Forecast","Produced multi-day AQI predictions with feature importance."]]},
+{n:"04",t:"Shopverse",s:"A multi-product marketplace, Amazon-style",d:"A multi-category e-commerce marketplace with browsing, search, cart and checkout.",stack:["React","Node.js","Express","MongoDB","JWT"],
+ prob:"Online shopping needs one place to find many products with a smooth path from search to checkout. Shopverse recreates that end to end.",
+ arch:["React storefront","REST API (Express)","Auth (JWT)","MongoDB database","Cart & orders","Payment (test mode)"],
+ tech:[["Frontend","React, React Router, responsive CSS"],["Backend","Node.js + Express REST API"],["Database","MongoDB with Mongoose (users, products, orders)"],["Auth","JWT + bcrypt password hashing"],["Search","Text index with category filters and sorting"],["Payments","Razorpay / Stripe test-mode checkout"]],
+ steps:[["Architect","Designed collections for users, products, categories, carts and orders."],["Build the API","CRUD endpoints, search, filters, auth middleware."],["Storefront","Listings, product pages, cart and checkout UI."],["Orders","Order placement, history and stock handling."],["Polish","Responsive layout, validation and error handling."]]},
+{n:"05",t:"Medical Doctor Assistant",s:"An AI co-pilot for clinicians",d:"An assistant that helps doctors summarise notes and surface what matters fast.",stack:["Python","FastAPI","scispaCy","LLM API","SQLite"],
+ prob:"Doctors are buried in notes and records. An assistant that organises information saves time for patients, while the doctor stays in charge.",
+ arch:["Clinical note","De-identification","Entity extraction","LLM summary","Red-flag rules","Doctor review"],
+ tech:[["Backend","Python + FastAPI"],["Entity extraction","scispaCy for symptoms, medications, conditions"],["Summarisation","LLM API producing SOAP-style summaries"],["Rules engine","Keyword/rule checks for red flags (e.g. chest pain)"],["Storage","SQLite for cases, with identifiers stripped"],["Safety","Human-in-the-loop sign-off; clear disclaimers"]]
+ ,steps:[["Workflow","Mapped where clinicians lose time: notes, history, lookups."],["Extract","Pulled structured entities from free-text notes."],["Summarise","Generated a concise SOAP-style summary with an LLM."],["Flag","A rules layer highlights urgent or risky signals."],["Review","The doctor edits and approves every output."]]}
+];
+const SK=["Python","Machine Learning","NLP & LLMs","Credit Risk","Time Series","Pandas","Full-Stack"];
+// 3D
+const R=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),antialias:true,alpha:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(65,1,.1,300);S.fog=new THREE.Fog(0x02040c,20,120);
+const W=(c,o=.6)=>new THREE.MeshBasicMaterial({color:c,wireframe:true,transparent:true,opacity:o});
+const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(2.4,.55,160,20),W(0x00f0ff));knot.position.set(3.5,0,-10);S.add(knot);
+const grid=new THREE.GridHelper(300,60,0xff2bd6,0x00f0ff);grid.position.set(0,-6,-100);grid.material.transparent=true;grid.material.opacity=.35;S.add(grid);
+const roof=grid.clone();roof.position.y=9;S.add(roof);
+const rings=[];for(let i=0;i<14;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(8,.05,8,6+(i%3)*2),W(i%2?0xff2bd6:0x00f0ff,.9));r.position.set(0,1,-16-i*8);S.add(r);rings.push(r)}
+const sh=[];for(let i=0;i<40;i++){const m=new THREE.Mesh(i%2?new THREE.OctahedronGeometry(.5+Math.random()):new THREE.IcosahedronGeometry(.5+Math.random()),W(Math.random()>.5?0x7a5cff:0x00f0ff,.7));m.position.set((Math.random()-.5)*34,(Math.random()-.4)*14,-Math.random()*130);S.add(m);sh.push(m)}
+const big=new THREE.Mesh(new THREE.IcosahedronGeometry(6,2),W(0xff2bd6,.5));big.position.set(-8,0,-75);S.add(big);
+const pa=new Float32Array(2400);for(let i=0;i<2400;i+=3){pa[i]=(Math.random()-.5)*60;pa[i+1]=(Math.random()-.5)*30;pa[i+2]=-Math.random()*150}
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pa,3));S.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xaaf8ff,size:.09})));
+function rs(){R.setSize(innerWidth,innerHeight,false);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()}rs();addEventListener('resize',rs);
+let mx=0,my=0,sp=0,cur=0;
+addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;const g=document.getElementById('glow');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'});
+addEventListener('scroll',()=>{sp=scrollY/Math.max(1,document.body.scrollHeight-innerHeight)});
+(function lp(t){requestAnimationFrame(lp);cur+=(sp-cur)*.06;C.position.z=-cur*115;C.position.x+=(mx*5-C.position.x)*.05;C.position.y+=(-my*3-C.position.y)*.05;C.rotation.z=Math.sin(cur*14)*.07;C.lookAt(C.position.x*.3,C.position.y*.3,C.position.z-10);
+knot.rotation.x=t*.0004;knot.rotation.y=t*.0006;big.rotation.y=t*.0003;rings.forEach((r,i)=>r.rotation.z=t*.0004*(i%2?1:-1));sh.forEach(s=>{s.rotation.x+=.004;s.rotation.y+=.005});R.render(S,C)})(0);
+// type
+const roles=["AI that heals","models that predict risk","marketplaces at scale","things that feel unreal"];let ri=0,ci=0,dl=0;const rt=document.getElementById('rt');
+(function ty(){const w=roles[ri];if(!dl){rt.textContent=w.slice(0,++ci);if(ci==w.length){dl=1;return setTimeout(ty,1500)}}else{rt.textContent=w.slice(0,--ci);if(!ci){dl=0;ri=(ri+1)%roles.length}}setTimeout(ty,dl?30:70)})();
+// cards
+P.forEach((p,i)=>{const c=document.createElement('div');c.className='card rv';c.style.transitionDelay=i*.08+'s';
+c.innerHTML=`<div class="glare"></div><div class="num">MISSION ${p.n}</div><div class="orb"></div><div><h3>${p.t}</h3><p>${p.d}</p><div class="chips">${p.stack.slice(0,3).map(s=>`<span>${s}</span>`).join('')}</div><div class="open">OPEN + LIVE DEMO →</div></div>`;
+c.onmousemove=e=>{const b=c.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;c.style.transition='transform .1s';c.style.transform=`rotateY(${(x-.5)*18}deg) rotateX(${(.5-y)*18}deg) scale(1.03)`;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%')};
+c.onmouseleave=()=>{c.style.transition='transform .6s';c.style.transform=''};c.onclick=()=>openP(i);document.getElementById('grid').appendChild(c)});
+const ring=document.getElementById('ring');SK.forEach((s,i)=>{const e=document.createElement('em'),a=i/SK.length*360;e.textContent=s;e.style.transform=`rotateZ(${a}deg) translateX(min(38vw,220px)) rotateZ(${-a}deg) rotateX(-68deg) translate(-50%,-50%)`;ring.appendChild(e)});
+// DEMOS
+const $=id=>document.getElementById(id);
+const DOS={Vata:["Warm sesame-oil massage (abhyanga)","Warm, cooked, grounding meals; ginger and cumin tea","Fixed sleep schedule; avoid cold and raw foods"],Pitta:["Cooling foods: cucumber, coconut water, mint","Avoid spicy, fried and sour foods; sip fennel tea","Moonlight walks; reduce midday heat and stress"],Kapha:["Light, warm, spiced meals with ginger and black pepper","Daily vigorous exercise; wake before 6am","Dry-brushing; avoid heavy dairy and sugar"]};
+const SY=[["Acidity","Pitta"],["Heartburn","Pitta"],["Irritability","Pitta"],["Skin rashes","Pitta"],["Bloating","Vata"],["Dry skin","Vata"],["Anxiety","Vata"],["Insomnia","Vata"],["Lethargy","Kapha"],["Congestion","Kapha"],["Weight gain","Kapha"],["Oversleeping","Kapha"]];
+let sel=new Set();
+function algo(){return `<div class="sub">Select your symptoms (simulated rule-based demo)</div>${SY.map((s,i)=>`<button class="pill" onclick="tg(${i},this)">${s[0]}</button>`).join('')}<div id="ao"></div><div class="disc">Educational demo only, not medical advice. Consult a qualified practitioner.</div>`}
+function tg(i,b){sel.has(i)?sel.delete(i):sel.add(i);b.classList.toggle('on');const sc={Vata:0,Pitta:0,Kapha:0};sel.forEach(k=>sc[SY[k][1]]++);const tot=sel.size||1;const top=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0];
+$('ao').innerHTML=sel.size?Object.entries(sc).map(([k,v])=>`<div class="row"><span>${k}</span><span>${Math.round(v/tot*100)}%</span></div><div class="bar"><i style="width:${v/tot*100}%"></i></div>`).join('')+`<div class="out"><b>Likely imbalance: ${top[0]}</b><br>${DOS[top[0]].map(x=>'• '+x).join('<br>')}</div>`:''}
+function credit(){const f=[["inc","Monthly income (₹ thousand)",15,300,60],["loan","Loan amount (₹ lakh)",1,100,15],["sc","Credit score",300,900,700],["mp","Missed payments (last 2 yrs)",0,10,1]];
+return `<div class="sub">Move the sliders: a logistic risk model scores the borrower live (simulated demo)</div>${f.map(x=>`<div class="sl"><label>${x[1]}<b id="${x[0]}v">${x[4]}</b></label><input type="range" id="${x[0]}" min="${x[2]}" max="${x[3]}" value="${x[4]}" oninput="cr()"></div>`).join('')}<div class="row"><span>Default probability</span></div><div class="big2" id="cp">0%</div><div class="bar"><i id="cb"></i></div><div class="out" id="co"></div>`}
+function cr(){const g=k=>+$(k).value;['inc','loan','sc','mp'].forEach(k=>$(k+'v').textContent=g(k));const r=g('loan')*100/(g('inc')*12);const dti=2.2*r,hist=-(g('sc')-650)/120,mp=.35*g('mp');const z=-2.4+dti+hist+mp,p=1/(1+Math.exp(-z));
+$('cp').textContent=(p*100).toFixed(1)+'%';$('cb').style.width=p*100+'%';const d=[["Loan-to-income",dti],["Credit score",hist],["Missed payments",mp]].sort((a,b)=>b[1]-a[1]);
+$('co').innerHTML=`<b>${p<.15?'LOW RISK: approve':p<.4?'MEDIUM RISK: review':'HIGH RISK: decline or reprice'}</b><br>Top driver: ${d[0][0]}`}
+const CT={Delhi:[210,60],Mumbai:[110,35],Bengaluru:[70,22],Kolkata:[150,45]};
+function aqi(){return `<div class="sub">Pick a city: 14 days history + 7 day forecast (simulated data)</div>${Object.keys(CT).map((c,i)=>`<button class="pill ${i?'':'on'}" onclick="ac('${c}',this)">${c}</button>`).join('')}<div id="aq"></div>`}
+function ac(c,b){if(b){b.parentNode.querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));b.classList.add('on')}const[base,amp]=CT[c];let s=c.length*7;const rnd=()=>(s=(s*9301+49297)%233280)/233280;
+const d=[];for(let i=0;i<21;i++)d.push(Math.max(20,Math.round(base+Math.sin(i/2.5)*amp*.6+(rnd()-.5)*amp*.6)));const W=900,H=280,mx=Math.max(...d)*1.15;const pts=d.map((v,i)=>[i/20*W,H-v/mx*H*.9-8]);
+const L=a=>a.map((p,i)=>(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0)).join(' ');const f=d.slice(14);const av=Math.round(f.reduce((a,b)=>a+b)/f.length);
+const cat=av<=50?['Good','#00ff9d']:av<=100?['Satisfactory','#c7ff3d']:av<=200?['Moderate','#ffb800']:av<=300?['Poor','#ff6a00']:['Severe','#ff2bd6'];
+$('aq').innerHTML=`<svg class="ch" viewBox="0 0 ${W} ${H}"><path class="pth" stroke="#00f0ff" d="${L(pts.slice(0,15))}"/><path class="pth" stroke="#ff2bd6" stroke-dasharray="8 8" d="${L(pts.slice(14))}" style="animation-delay:1.6s;stroke-dasharray:8 8;stroke-dashoffset:0;opacity:0;animation:fi .5s 1.8s forwards"/></svg><style>@keyframes fi{to{opacity:1}}</style><div class="out">7-day forecast avg AQI: <b style="color:${cat[1]}">${av} · ${cat[0]}</b><br>Cyan = history · Pink dashed = model forecast</div>`}
+const PR=[["🎧","Headphones",2999],["⌚","Smartwatch",4999],["👟","Sneakers",3499],["📚","Book set",899],["🎒","Backpack",1599],["💡","Smart lamp",1299]];let cart={};
+function shop(){return `<div class="sub">Search, add to cart, check out (simulated storefront)</div><input type="text" id="sq" placeholder="Search products…" oninput="sr()"><div class="pg" id="pg"></div><div class="out" id="ct"></div>`}
+function sr(){const q=$('sq').value.toLowerCase();$('pg').innerHTML=PR.map((p,i)=>p[1].toLowerCase().includes(q)?`<div class="pr"><div>${p[0]}</div><b>${p[1]}</b><span>₹${p[2]}</span><button onclick="ad(${i})">ADD TO CART</button></div>`:'').join('');ct()}
+function ad(i){cart[i]=(cart[i]||0)+1;ct()}
+function ct(){const k=Object.keys(cart);$('ct').innerHTML=k.length?k.map(i=>`${PR[i][1]} × ${cart[i]}`).join(' · ')+`<br><b>Total ₹${k.reduce((a,i)=>a+PR[i][2]*cart[i],0)}</b> <button class="pill" onclick="cart={};ct()">Clear</button>`:'Cart is empty'}
+const NOTE="Patient reports fever and headache for 3 days with dry cough. Mild chest pain on deep breath. Taking paracetamol. History of asthma. No allergies.";
+function doc(){return `<div class="sub">Paste a clinical note: the assistant structures it (simulated rule-based demo)</div><textarea id="dn" rows="4">${NOTE}</textarea><button class="btn" onclick="ds()">Summarise</button><div id="dout"></div><div class="disc">Assistive demo only. The doctor always makes the decision.</div>`}
+function ds(){const t=$('dn').value,l=t.toLowerCase();const V=["fever","headache","cough","chest pain","fatigue","nausea","vomiting","dizziness","sore throat","breathlessness","back pain","rash"];const sy=V.filter(v=>l.includes(v));const du=(l.match(/(\d+)\s*(day|week|month)s?/)||[])[0]||'not stated';
+const md=["paracetamol","ibuprofen","aspirin","metformin","amoxicillin","insulin"].filter(m=>l.includes(m));const hx=["asthma","diabetes","hypertension","thyroid"].filter(m=>l.includes(m));
+const fl=[];if(l.includes('chest pain'))fl.push('Chest pain: rule out cardiac/pulmonary cause');if(l.includes('breathless'))fl.push('Breathlessness: assess urgency');if(l.includes('fever')&&l.includes('cough'))fl.push('Fever + cough: consider chest infection');if(hx.includes('asthma')&&l.includes('cough'))fl.push('Asthma history with cough: check control');
+const q=sy.slice(0,3).map(s=>`Any change in ${s}?`);
+$('dout').innerHTML=`<div class="out"><b>Symptoms:</b> ${sy.join(', ')||'none detected'}<br><b>Duration:</b> ${du}<br><b>Medications:</b> ${md.join(', ')||'none'}<br><b>History:</b> ${hx.join(', ')||'none'}<br><b>⚑ Flags:</b> ${fl.join(' · ')||'none'}<br><b>Suggested questions:</b> ${q.join(' ')}</div>`}
+const DM=[[algo,()=>{}],[credit,cr],[aqi,()=>ac('Delhi')],[shop,sr],[doc,()=>{}]];
+// modal
+const md=$('modal'),mi=$('mi');
+function openP(i){const p=P[i];sel=new Set();mi.innerHTML=`<div class="ey">Mission ${p.n}</div><h2>${p.t}</h2><div class="tag">${p.s}</div><div class="mb"><h4>The problem</h4><p>${p.prob}</p></div><div class="mb"><h4>Process</h4><div class="steps">${p.steps.map((s,j)=>`<div style="transition-delay:${j*.25}s"><b>${j+1}. ${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div></div><div class="mb"><h4>Architecture</h4><div class="flow">${p.arch.map((x,k)=>`<span>${x}</span>${k<p.arch.length-1?"<em>→</em>":""}`).join("")}</div></div><div class="mb"><h4>Under the hood</h4><div class="tt">${p.tech.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}</div></div><div class="mb"><h4>Live demo</h4><div class="demo">${DM[i][0]()}</div></div><div class="mb"><h4>Stack</h4><div class="chips">${p.stack.map(s=>`<span>${s}</span>`).join('')}</div></div><div class="cta"><button class="btn" onclick="closeP()">← Back</button>${i<4?`<button class="btn" onclick="openP(${i+1})">Next mission →</button>`:''}</div>`;
+md.scrollTop=0;md.classList.add('show');document.body.style.overflow='hidden';DM[i][1]();setTimeout(()=>mi.querySelectorAll('.steps div').forEach(e=>e.classList.add('on')),300)}
+function closeP(){md.classList.remove('show');document.body.style.overflow=''}
+$('cx').onclick=closeP;addEventListener('keydown',e=>e.key=='Escape'&&closeP());
+function count(r){r.querySelectorAll('[data-n]').forEach(el=>{const n=+el.dataset.n;if(el.dataset.d)return;el.dataset.d=1;const st=performance.now();(function f(t){const k=Math.min(1,(t-st)/1400);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(st)})}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');count(e.target)}}),{threshold:.15});document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+</script></body></html>

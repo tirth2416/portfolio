@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: tirth-portfolio
+    runtime: static
+    staticPublishPath: .
